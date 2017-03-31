@@ -12,8 +12,7 @@ import rx.Observable;
 public class RxJavaTask1 {
 
     /**
-     * TODO : implement this method
-     *
+     * <p>
      * This method takes list of strings and creates an observable of integers,
      * that represents length of strings which contains letter 'r' (or 'R')
      *
@@ -22,9 +21,10 @@ public class RxJavaTask1 {
      */
     @NonNull
     public static Observable<Integer> task1Observable(@NonNull List<String> list) {
-        throw new RuntimeException("Observable not implemented exception");
+        return Observable.from(list)
+                .filter(item -> item.contains("r") || item.contains("R"))
+                .map(String::length);
     }
-
 }
 
 
