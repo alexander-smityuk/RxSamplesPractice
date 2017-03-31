@@ -13,8 +13,8 @@ public class RxJavaTask2 {
 
     /**
      * TODO : implement this method
-     *
-     * Take the range of integers [1..100000] and apply next functions:
+     * <p>
+     * Take the range of integers [1..10_00_00] and apply next functions:
      * 1) Multiply all elements by 2
      * 2) Remove 40 000 elements from start and 40 000 elements from end
      * 3) Remove all values which is not divided by 3
@@ -26,7 +26,14 @@ public class RxJavaTask2 {
      */
     @NonNull
     public static Observable<BigInteger> task2Observable() {
-        throw new RuntimeException("Observable not implemented exception");
+        return Observable.range(1, 10_00_00)
+                .map(item -> item * 2)
+                .skipLast(40_000)
+                .skip(40_000)
+                .filter(item -> item % 3 == 0)
+                .map(BigInteger::valueOf)
+                .reduce((result, item) -> result = result.multiply(item))
+                .cache();
     }
 
 }
