@@ -14,15 +14,15 @@ public class RxJavaTask3 {
 
     /**
      * TODO : implement this method
-     *
+     * <p>
      * This method takes observable of list of persons as a parameter.
      * Note: observable may have more than one persons list
-     *
+     * <p>
      * 1) Transform observable of list of persons into single observable of all persons
      * 2) For each person in new observable double person name
      * 3) Remove same persons from observable
      * 4) Create observable of single integer
-     *    which represents sum of calls Person#intValue for every persons
+     * which represents sum of calls Person#intValue for every persons
      * 5) Return observable from step 4
      *
      * @param observable - observable of persons list
@@ -31,7 +31,11 @@ public class RxJavaTask3 {
     @NonNull
     public static Observable<Integer> task3Observable(
             @NonNull Observable<List<Person>> observable) {
-        throw new RuntimeException("Observable not implemented exception");
+        return observable.flatMapIterable(item -> item)
+                .map(person -> new Person(person.getName() + person.getName(), person.getAge()))
+                .distinct()
+                .map(Person::intValue)
+                .reduce((sum, value) -> sum += value);
     }
 
 }
