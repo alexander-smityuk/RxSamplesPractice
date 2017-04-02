@@ -14,7 +14,7 @@ public class RxJavaTask4 {
 
     /**
      * TODO : implement this method
-     *
+     * <p>
      * This method takes 4 list of persons - you should return one single observable of persons
      * 1) Merge (concat) two fathers list into single fathers observable
      * 2) Repeat step 1 for mothers lists
@@ -31,7 +31,13 @@ public class RxJavaTask4 {
                                                      @NonNull List<Person> fathers2,
                                                      @NonNull List<Person> mothers1,
                                                      @NonNull List<Person> mothers2) {
-        throw new RuntimeException("Observable not implemented exception");
+        Observable<Person> fathers = Observable.concat(Observable.from(fathers1),
+                Observable.from(fathers2));
+
+        Observable<Person> mothers = Observable.concat(Observable.from(mothers1),
+                Observable.from(mothers2));
+
+        return fathers.zipWith(mothers, Person::makeChild);
     }
 
 }
